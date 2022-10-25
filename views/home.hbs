@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{!-- Stylesheet --}}
+    <link rel="stylesheet" href="/stylesheets/style_2.0.css">
+
+    {{!-- Boxicons --}}
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+    {{!-- jQuery --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    {{!-- Moment --}}
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+    {{!-- Personal Scripts --}}
+    <script src="/javascript/components.js"></script>
+
+    <title>Home – li</title>
+</head>
+<body>
+    <top-nav>
+        <nav-item is-footer="true"><box-icon color="#ffffff" name='home'></box-icon></nav-item>
+        <nav-item><box-icon color="#ffffff" name='code-curly'></box-icon></nav-item>
+        <nav-item><box-icon color="#ffffff" name='ball'></box-icon></nav-item>
+    </top-nav>
+</body>
+</html>
+
+<script type="text/javascript">
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>

@@ -1,0 +1,8 @@
+{
+    "html-to-css-autocompletion.folderNamesToBeIncluded": [
+        "stylesheets"
+    ],
+    "html-to-css-autocompletion.autocompletionFilesScope": "workspace",
+    "discord.enabled": true,
+    "rpc.enabled": false
+}
