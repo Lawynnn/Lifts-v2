@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-module.exports.User = mongoose.model('Users', new mongoose.Schema({
+module.exports.User = mongoose.model(
+  "Users",
+  new mongoose.Schema({
     id: String,
     username: String,
     email: String,
@@ -8,20 +10,35 @@ module.exports.User = mongoose.model('Users', new mongoose.Schema({
     avatar: String,
     verified: Boolean,
     locale: String,
-    rank: {
-        type: String,
-        default: "Member"
-    },
     createdAt: {
-        type: Date,
-        default: new Date()
+      type: Date,
+      default: new Date(),
     },
     updatedAt: {
-        type: Date,
-        default: new Date()
+      type: Date,
+      default: new Date(),
     },
     lastLogin: {
-        type: Date,
-        default: new Date()
-    }
-}));
+      type: Date,
+      default: new Date(),
+    },
+    tier: {
+      maxBots: {
+        type: Number,
+        default: 5,
+      },
+      maxBotCommands: {
+        type: Number,
+        default: 80,
+      },
+      maxBotVariables: {
+        type: Number,
+        default: 130,
+      },
+      isPremiumUser: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  })
+);

@@ -1,92 +1,93 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-module.exports.Bot = mongoose.model('Bots', new mongoose.Schema({
+module.exports.Bot = mongoose.model(
+  "Bots",
+  new mongoose.Schema({
     owner: String,
     token: String,
     shareCode: {
-        type: String,
-        default: new Date().getTime().toString()
+      type: String,
+      default: new Date().getTime().toString(),
     },
     useShareCode: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     hostingEnd: {
-        type: Date,
-        default: Date.now
+      type: Date,
+      default: Date.now,
     },
     createdAt: {
-        type: Date,
-        default: Date.now
+      type: Date,
+      default: Date.now,
     },
     updatedAt: {
-        type: Date,
-        default: Date.now
+      type: Date,
+      default: Date.now,
     },
     data: {
-        id: String,
-        username: String,
-        discriminator: String,
-        avatar: String,
+      id: String,
+      username: String,
+      discriminator: String,
+      avatar: String,
     },
     folders: [
-        {
-            name: String
-        }
+      {
+        name: String,
+      },
     ],
     commands: [
-        {
-            name: {
-                type: String,
-                default: "My first command"
-            },
-            trigger: {
-                type: String,
-                default: "!ping"
-            },
-            script: {
-                type: String,
-                default: "Pong!"
-            },
-            createdAt: {
-                type: Date,
-                default: Date.now
-            },
-            updatedAt: {
-                type: Date,
-                default: Date.now
-            },
-            folder: {
-                type: String,
-                default: "~default~"
-            },
-            position: {
-                type: Number,
-                default: 0,
-                min: 0
-            }
-        }
+      {
+        name: {
+          type: String,
+          default: "My first command",
+        },
+        trigger: {
+          type: String,
+          default: "!ping",
+        },
+        script: {
+          type: String,
+          default: "Pong!",
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+        updatedAt: {
+          type: Date,
+          default: Date.now,
+        },
+        folder: {
+          type: String,
+          default: "~default~",
+        },
+        position: {
+          type: Number,
+          default: 0,
+          min: 0,
+        },
+      },
     ],
     variables: [
-        {
-            name: {
-                type: String,
-                default: "Dogo"
-            },
-            value: {
-                global: {
-                    type: String,
-                    value: "Ham"
-                },
-                servers: [
-                ],
-                users: [
-                ]
-            },
-            createdAt: {
-                type: Date,
-                default: new Date()
-            }
-        }
-    ]
-}));
+      {
+        name: {
+          type: String,
+          default: "Dogo",
+        },
+        value: {
+          global: {
+            type: String,
+            value: "Ham",
+          },
+          servers: [],
+          users: [],
+        },
+        createdAt: {
+          type: Date,
+          default: new Date(),
+        },
+      },
+    ],
+  })
+);

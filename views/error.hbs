@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{command.name}} ─ Lifts</title>
+    <title>Error {{code}} ─ Lifts</title>
 
     {{!-- Stylesheet --}}
     <link rel="stylesheet" href="/stylesheets/css.css">
@@ -13,8 +13,7 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    {{!-- Dashboard --}}
-    <script src="/javascript/command.js"></script>
+    {{!-- Scripts --}}
     <script src="/javascript/utils.js"></script>
 
     {{!-- Error --}}
@@ -27,17 +26,20 @@
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
 </head>
 <body>
-    <div class="flash"></div>
     <div class="top-nav">
         <header>
             <img src="/images/2025_logo.png" alt="">
         </header>
         <footer>
+            {{#if user}}
             <button class="account" onClick="toggleDropdown()">
                 <img src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.png">
                 <span>{{user.username}}</span>
                 <div class="open_icon"><box-icon name='chevron-down' color="var(--gray)"></box-icon></div>
             </button>
+            {{else}}
+            <a href="/auth/discord"><i class='bx bxs-user' ></i> Sign in</a>
+            {{/if}}
         </footer>
     </div>
     <div class="dropdown" style="position: fixed;" data-opened="false">
@@ -46,45 +48,21 @@
         <div class="separator"></div>
         <button><box-icon name='exit' color="var(--gray)"></box-icon> Logout</button>
     </div>
-    <div class="commands-container">
-        <div class="editor">
-            <div class="e-input" for="cmd_name">
-                <span>Name</span>
-                <input type="text" id="cmd_name" placeholder="Command name" value="{{command.name}}">
+    
+    <div class="error-container">
+        <img class="bug" src="/svg/bug-fixed.svg">
+        <div class="centered">
+            <div class="title">
+                <h2>Error <strong>{{code}}</strong></h2>
             </div>
-
-            <div class="e-input" for="cmd_trigger">
-                <span>Trigger</span>
-                <input type="text" id="cmd_trigger" placeholder="Command trigger" value="{{command.trigger}}">
+            <div class="description">
+                <span>{{description}}</span>
             </div>
-            
-            <div class="top-input">
-                <span>Folder</span>
-                <div class="input-container">
-                    {{#each bot.folders}}
-                        <div onclick="setFolder('{{this.name}}')" class="input-folder {{#eq this.name ../command.folder}}active{{/eq}}" {{#eq this.name ../command.folder}}id="activeFolder"{{/eq}} name="{{this.name}}">
-                            <p><i class='bx bxs-folder' ></i> {{#eq this.name "~default~"}}None{{else}}{{truncate this.name 30 "..."}}{{/eq}}</p>
-                            {{#eq this.name "~default~"}}{{else}}<button><i class='bx bx-checkbox-minus' ></i></button>{{/eq}}
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
-            
-            <div class="text-area">
-                <div class="left-side" id="left_side_cmd">
-                    {{!-- Ps --}}
-                </div>
-                <textarea id="cmd_script" placeholder="Command script">{{command.script}}</textarea>
-            </div>
-            
             <div class="buttons">
-                <a href="/dashboard/{{bot._id}}/command">Cancel</a>
-                <button onClick="editCommand('{{command._id}}', '{{bot._id}}')">Save</button>
+                <a href="/"><i class='bx bxs-home' ></i> Go back home</a>
             </div>
-            
         </div>
     </div>
-    
 </body>
 </html>
 
