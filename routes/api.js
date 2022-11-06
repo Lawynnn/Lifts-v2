@@ -29,16 +29,13 @@ clientStore.eventEmitter.on("client.store", (client, expire, timeout, _id) => {
       const cmd = message.content.slice(0, command.trigger.length);
       let content = command.script;
       if (command.trigger === cmd) {
-        let embeds = [];
-        let errors = [];
+        let startTime = performance.now();
+        let Compile = new Compiler({ args, client, message });
         if (content) {
-          content = Compiler.compile(content, message, client, args);
-
-          errors = Compiler.errors;
-          embeds = Compiler.embeds.map((e) => e.emb);
-          Compiler.clean();
+          content = Compile.compile(content);
         }
-        if (errors.length > 0) {
+
+        if (Compile.errors.length > 0) {
           await message.channel.send({
             embeds: [
               new Discord.EmbedBuilder()
@@ -54,19 +51,26 @@ clientStore.eventEmitter.on("client.store", (client, expire, timeout, _id) => {
           });
           return;
         }
-        await message.channel.send({ content, embeds }).catch((err) => {
-          message.channel.send({
-            embeds: [
-              new Discord.EmbedBuilder()
-                .setTitle(":x: Error")
-                .setColor("#ff0000")
-                .setDescription(
-                  `Here is error message\n\`\`\`\n${err.message}\`\`\``
-                )
-                .setTimestamp(new Date()),
-            ],
+        content = content.replace(
+          /@execTime/g,
+          (performance.now() - startTime).toFixed(3) + "ms"
+        );
+        await message.channel
+          .send({ content, embeds: Compile.embeds.map((e) => e.emb) })
+          .catch((err) => {
+            // console.log({ embeds: [Compile.embeds.map((e) => e.emb)] });
+            message.channel.send({
+              embeds: [
+                new Discord.EmbedBuilder()
+                  .setTitle(":x: Error")
+                  .setColor("#ff0000")
+                  .setDescription(
+                    `Here is error message\n\`\`\`\n${err.message}\`\`\``
+                  )
+                  .setTimestamp(new Date()),
+              ],
+            });
           });
-        });
       }
     });
   });
@@ -88,6 +92,20 @@ route.post("/", (req, res, next) => {
     message: "Welcome to the API",
     version: "1.0.0",
   });
+});
+
+route.post("/user", async (req, res, next) => {
+  if (req.user) {
+    return res.status(200).json({ success: true, user: req.user });
+  }
+  res.status(401).json({
+    success: false,
+    error: {
+      code: "unauthorized_user",
+      message: "Your are not authorized yet.",
+    },
+  });
+  console.log(req.user);
 });
 
 route.get("/bot/:id/variable", Auth, async (req, res, next) => {

@@ -4,6 +4,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const Store = require("connect-mongo");
+const cors = require("cors");
 
 require("handlebars-helpers")();
 const { db } = require("./database/connect");
@@ -19,6 +20,12 @@ const app = express()
       cookie: { maxAge: 1000 * 60 * 60 * 24 },
       resave: false,
       store: Store.create(db.connection),
+    })
+  )
+  .use(
+    cors({
+      credentials: true,
+      origin: "https://m9t926.csb.app",
     })
   )
   .use(passport.initialize())
