@@ -112,14 +112,14 @@ route.get("/dashboard/:id/command/", Auth, async (req, res, next) => {
 route.get("/auth/discord", passport.authenticate("discord"));
 route.get(
   "/auth/discord/after",
-  passport.authenticate("discord", {
-    failureRedirect: "/auth/discord",
-    successRedirect: "/dashboard",
-  })
+  passport.authenticate("discord"),
+  (req, res, next) => {
+    res.redirect("https://m9t926.csb.app/");
+  }
 );
 route.get("/logout", Auth, (req, res, next) => {
   req.session.destroy();
-  res.redirect("/");
+  res.redirect("https://m9t926.csb.app/");
 });
 
 module.exports = route;
